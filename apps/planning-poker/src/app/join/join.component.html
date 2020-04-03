@@ -1,0 +1,6 @@
+<h1>Welcome!</h1>
+<form [formGroup]="form" (ngSubmit)="join(form)">
+    <input formControlName="name" placeholder="Your name">
+    <input formControlName="room" placeholder="Join room?">
+    <button type="submit">Send</button>
+</form>

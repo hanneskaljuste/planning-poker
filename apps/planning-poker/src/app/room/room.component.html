@@ -1,0 +1,31 @@
+<h1>{{user?.room }}</h1>
+
+<div class="admin-controls" *ngIf="user?.isAdmin">
+    <button (click)="showVotes()">Show votes</button>
+    <button (click)="clearVotes()">Clear votes</button>
+</div>
+
+
+<h1 *ngIf="minFighter">Fight</h1>
+<div class="fightbox" *ngIf="minFighter">
+    <div class="item min">{{minFighter}}</div>
+    <div class="item vs">VS</div>
+    <div class="item max">{{maxFighter}}</div>
+</div>
+
+
+<div class="grid-container" [ngClass]="{'fight': minFighter}">
+    <div class="grid-item">
+        <div class="users" *ngFor="let u of users">
+            <div class="user name" [ngClass]="{you: u.name===user.name}">{{u.name}}</div>
+            <div class="user" [ngClass]="{voted: u.voted, notvoted: !u.voted, vote: u.vote}">
+                {{u.vote ? u.vote : '&nbsp;' }}</div>
+        </div>
+    </div>
+    <div class="grid-item">
+        <div class="scales">
+            <button class="scale" *ngFor="let scale of scales" (click)="castVote(scale)"
+                [ngClass]="{selected: user?.vote === scale}">{{scale}}</button>
+        </div>
+    </div>
+</div>

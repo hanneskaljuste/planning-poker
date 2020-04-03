@@ -1,3 +1,9 @@
 export interface Message {
-  message: string;
+    message: string;
+}
+
+
+export interface ConnectionData {
+    name: string;
+    room?: string;
 }

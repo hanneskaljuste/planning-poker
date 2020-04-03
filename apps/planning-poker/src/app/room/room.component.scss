@@ -1,0 +1,96 @@
+// .scales {
+//     .scale {
+//         border: 1px solid #000;
+//         margin: 10px;
+
+//         &.selected {
+//             background: green;;
+//         }
+//         &:hover {
+//             cursor: pointer;
+//         }
+//     }
+// }
+h1 {
+    margin:20px 0;
+}
+.admin-controls{
+    margin: 20px 0;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+.grid-container {
+    &.fight {
+        opacity: .1;
+    }
+    // margin: 20px 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    .grid-item {
+        // border: 1px solid red;
+        box-sizing: border-box;
+        .users {
+            // margin: 10px 0;
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 75% 25%;
+            .user{
+                font-size: 18px;
+                height:40px;
+                line-height: 40px;
+                &.name{
+                    text-transform: uppercase;
+                    &.you {
+                        font-weight: bold;
+                    }
+                }
+
+                &.voted {
+                    background: green;
+                    &.vote {
+                        background: #fff;
+                    }
+                }
+                &.notvoted {
+                    background: red;
+                }
+            }
+
+        }
+    }
+}
+
+button {
+    letter-spacing: 0;
+    margin-bottom: 10px;
+    &.selected {
+        background: #ddd;
+    }
+}
+
+
+.fightbox{
+    margin: 20px 0;
+    display: grid;
+    // grid-column-gap: 10px;
+    grid-template-columns: 5fr 1fr 5fr;
+    border-bottom: 2px dashed #ddd;
+    .item {
+        font-size: 18px;
+        height:40px;
+        line-height: 40px;
+        text-transform: uppercase;
+        &.min {
+            text-align: left;
+        }
+        &.vs{
+            text-align: center;
+        }
+        &.max{
+            text-align: right;
+        }
+    }
+}
