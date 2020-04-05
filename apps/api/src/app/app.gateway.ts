@@ -3,9 +3,9 @@ import { Logger } from '@nestjs/common';
 import { ConnectionData } from '@planning-poker/api-interfaces';
 import { Room } from './models/room.model';
 import { User } from './models/user.model';
-import { asap } from 'rxjs/internal/scheduler/asap';
 
 @WebSocketGateway( {
+    parh: '/api',
     namespace: '/planning-poker',
     pingTimeout: 60000,
     pingInterval: 5000,

@@ -7,8 +7,9 @@ import { SocketIoConfig, SocketIoModule } from './utils/socket';
 import { AppRoutingModule } from './app-routing.module';
 import { RoomComponent } from './room/room.component';
 import { JoinComponent } from './join/join.component';
+import { APP_BASE_HREF } from '@angular/common';
 
-const config: SocketIoConfig = { url: '/planning-poker', options: { pingTimeout: 90000, pingInterval: 1000 } };
+const config: SocketIoConfig = { url: 'https://hanneskaljuste.com/planning-poker', options: { pingTimeout: 90000, pingInterval: 1000 } };
 
 
 @NgModule( {
@@ -20,7 +21,9 @@ const config: SocketIoConfig = { url: '/planning-poker', options: { pingTimeout:
         ReactiveFormsModule,
         SocketIoModule.forRoot( config )
     ],
-    providers: [],
+    providers: [
+
+    ],
     bootstrap: [ AppComponent ]
 } )
 export class AppModule { }

@@ -145,6 +145,7 @@
                 "build": {
                     "builder": "@nrwl/node:build",
                     "options": {
+                        "webpackConfig": "webpack.config.js",
                         "outputPath": "dist/apps/api",
                         "main": "apps/api/src/main.ts",
                         "tsConfig": "apps/api/tsconfig.app.json",
@@ -162,7 +163,8 @@
                                     "replace": "apps/api/src/environments/environment.ts",
                                     "with": "apps/api/src/environments/environment.prod.ts"
                                 }
-                            ]
+                            ],
+                            "externalDependencies": "all"
                         }
                     }
                 },

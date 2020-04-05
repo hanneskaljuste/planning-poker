@@ -82,3 +82,6 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+
+
+https://github.com/nrwl/nx/issues/1518#issuecomment-533555445
