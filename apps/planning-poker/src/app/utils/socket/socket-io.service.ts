@@ -46,6 +46,7 @@ export class WrappedSocket {
 
     emit ( eventName: string, data?: any, callback?: Function ) {
         // TODO: remember this, arguments
+        
         return this.ioSocket.emit.apply( this.ioSocket, arguments );
     }
 
