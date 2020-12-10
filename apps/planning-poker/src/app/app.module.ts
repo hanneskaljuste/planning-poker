@@ -9,7 +9,7 @@ import { RoomComponent } from './room/room.component';
 import { JoinComponent } from './join/join.component';
 import { APP_BASE_HREF } from '@angular/common';
 
-const config: SocketIoConfig = { url: 'https://hanneskaljuste.com/planning-poker', options: { pingTimeout: 90000, pingInterval: 1000 } };
+const config: SocketIoConfig = { url: 'http://localhost:3333/planning-poker', options: { pingTimeout: 90000, pingInterval: 1000 } };
 
 
 @NgModule( {

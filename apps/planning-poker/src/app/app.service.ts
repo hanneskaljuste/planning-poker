@@ -2,70 +2,74 @@ import { Injectable } from '@angular/core';
 import { Socket } from './utils/socket';
 import { ConnectionData } from '@planning-poker/api-interfaces';
 
-@Injectable( {
+@Injectable({
     providedIn: 'root'
-} )
+})
 export class AppService {
     private clientDetails: any;
 
-    constructor( private socket: Socket ) { }
+    constructor(private socket: Socket) { }
 
-    getDetails () {
-        console.log( 'getDetails' );
+    getDetails() {
+        console.log('getDetails');
         return this.socket
-            .fromEvent( "myDetails" );
+            .fromEvent("myDetails");
     }
 
-    setMyDetails ( details ) {
+    setMyDetails(details) {
         this.clientDetails = details;
     }
 
-    getMyDetails () {
+    getMyDetails() {
         return this.clientDetails;
     }
 
-    getData () {
-        console.log( 'getData' );
-        return this.socket.fromEvent( 'data' );
+    getData() {
+        console.log('getData');
+        return this.socket.fromEvent('data');
     }
 
-    createRoom ( payload: ConnectionData ) {
-        console.log( 'createRoom', payload );
-        this.socket.emit( 'createRoom', payload );
+    createRoom(payload: ConnectionData) {
+        console.log('createRoom', payload);
+        this.socket.emit('createRoom', payload);
     }
 
-    joinRoom ( payload: ConnectionData ) {
-        console.log( 'joinRoom', payload );
-        this.socket.emit( 'joinRoom', payload );
+    joinRoom(payload: ConnectionData) {
+        this.socket.emit('joinRoom', payload);
     }
 
-    castVote ( payload: any ) {
-        console.log( 'castVote', payload );
-        this.socket.emit( 'vote', payload );
+    castVote(payload: any) {
+        console.log('castVote', payload);
+        this.socket.emit('vote', payload);
     }
 
-    clearVotes ( room ) {
-        console.log( 'clearVotes' );
-        this.socket.emit( 'clearVotes', { room: room } );
+    clearVotes(room) {
+        console.log('clearVotes');
+        this.socket.emit('clearVotes', { room: room });
     }
 
-    showVotes ( room ) {
-        console.log( 'showVotes' );
-        this.socket.emit( 'showVotes', { room: room } );
+    showVotes(room) {
+        console.log('showVotes');
+        this.socket.emit('showVotes', { room: room });
+    }
+
+    changeAdmin(payload: any) {
+        console.log('changeAdmin', payload);
+        this.socket.emit('changeAdmin', payload);
     }
 
 
-    requestUsers ( room ) {
-        this.socket.emit( 'users', room );
+    requestUsers(room) {
+        this.socket.emit('users', room);
     }
-    getUsers () {
+    getUsers() {
         return this.socket
-            .fromEvent( "users" );
+            .fromEvent("users");
     }
 
 
-    getFighters () {
+    getFighters() {
         return this.socket
-            .fromEvent( "fighters" );
+            .fromEvent("fighters");
     }
 }

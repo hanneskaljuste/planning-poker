@@ -1,4 +1,4 @@
-<h1>{{user?.room }}</h1>
+<button (click)="copyToClipboard(user?.room)">{{user?.room }}</button>
 
 <div class="admin-controls" *ngIf="user?.isAdmin">
     <button (click)="showVotes()">Show votes</button>
@@ -16,8 +16,9 @@
 
 <div class="grid-container" [ngClass]="{'fight': minFighter}">
     <div class="grid-item">
-        <div class="users" *ngFor="let u of users">
-            <div class="user name" [ngClass]="{you: u.name===user.name}">{{u.name}}</div>
+        <div class="users" *ngFor="let u of users; let i = index">
+            <button class="promote" *ngIf="user?.isAdmin && u.name!==user.name" (click)="changeAdmin(u, i)">Promote</button>
+            <div  class="user name" [ngClass]="{you: u.name===user.name, admin: u.isAdmin}">{{u.name}}</div>
             <div class="user" [ngClass]="{voted: u.voted, notvoted: !u.voted, vote: u.vote}">
                 {{u.vote ? u.vote : '&nbsp;' }}</div>
         </div>

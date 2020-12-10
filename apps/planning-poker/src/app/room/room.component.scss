@@ -21,9 +21,6 @@ h1 {
     grid-template-columns: 1fr 1fr;
 }
 .grid-container {
-    &.fight {
-        opacity: .1;
-    }
     // margin: 20px 0;
     box-sizing: border-box;
     display: grid;
@@ -34,9 +31,15 @@ h1 {
         box-sizing: border-box;
         .users {
             // margin: 10px 0;
+            position: relative;
             margin-bottom: 10px;
             display: grid;
             grid-template-columns: 75% 25%;
+            .promote {
+                position: absolute;
+                width: 95px;
+                left: -35%;
+            }
             .user{
                 font-size: 18px;
                 height:40px;
@@ -45,6 +48,11 @@ h1 {
                     text-transform: uppercase;
                     &.you {
                         font-weight: bold;
+                    }
+                    &.admin {
+                        &::before {
+                            content: "♕";
+                        }
                     }
                 }
 

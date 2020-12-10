@@ -10,8 +10,13 @@ const routes: Routes = [
     },
     {
         path: 'room',
+        pathMatch: 'full',
         component: RoomComponent
-    }
+    },
+    {
+        path: 'room/:id',
+        component: JoinComponent
+    },
 ];
 
 @NgModule( {
