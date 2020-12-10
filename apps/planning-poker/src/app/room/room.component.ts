@@ -27,8 +27,8 @@ export class RoomComponent implements OnInit {
     ngOnInit(): void {
         this.user = this.service.getMyDetails();
         this.service.getDetails().subscribe(d => {
-            console.log('yaaaaas', d);
-            this.user = d
+            this.service.setMyDetails(d);
+            this.user = this.service.getMyDetails();
         });
         if (!this.user) {
             this.router.navigate(['']);
@@ -62,8 +62,11 @@ export class RoomComponent implements OnInit {
     }
 
     changeAdmin(user, index) {
-        this.service.changeAdmin({room: this.user.room, newAdmin: user, index: index})
-        this.ref.detectChanges();
+        this.service.changeAdmin({ room: this.user.room, newAdmin: user, index: index })
+        this.service.getDetails().subscribe(d => {
+            this.service.setMyDetails(d);
+            this.user = this.service.getMyDetails();
+        });
     }
 
     showVotes() {

@@ -21,9 +21,6 @@ h1 {
     grid-template-columns: 1fr 1fr;
 }
 .grid-container {
-    &.fight {
-        opacity: .1;
-    }
     // margin: 20px 0;
     box-sizing: border-box;
     display: grid;

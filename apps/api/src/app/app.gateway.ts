@@ -34,17 +34,19 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     }
 
     async handleDisconnect(client) {
-        const user = this.users[client.id];
-        const room: Room = this.rooms[this.room];
-        this.users.delete(client.id);
+        const user: User = this.users[client.id];
         if (user) {
+            const room: Room = this.rooms[user.room];
+            let adminLeft = user.isAdmin;
             room.removeUser(user);
+            this.users.delete(user.socket.id);
+            let newAdmin = room.users[0];
+            if (newAdmin) {
+                newAdmin.isAdmin = adminLeft;
+                newAdmin.socket.emit('myDetails', { name: newAdmin.name, isAdmin: newAdmin.isAdmin, room: room.id, voted: newAdmin.voted })
+            }
+            this.server.to(this.room).emit('users', await this.getRoomUsers(this.room, false));
         }
-        let newAdmin = room.users[0];
-        if (newAdmin) {
-            newAdmin.isAdmin = true;
-        }
-        this.server.to(this.room).emit('users', await this.getRoomUsers(this.room, false));
         this.logger.log(`disconnected ${client.id}`);
     }
 
@@ -144,12 +146,13 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.logger.log(`changeAdmin ${payload.newAdmin.name}`);
         const room: Room = this.rooms[payload.room];
         const newAdmin: User = room.users[payload.index];
-        
+
         const user: User = this.users[client.id];
         user.isAdmin = false;
         newAdmin.isAdmin = true;
         this.server.to(payload.room).emit('users', await this.getRoomUsers(payload.room, false));
-        client.emit('myDetails', { name: newAdmin.name, isAdmin: newAdmin.isAdmin, room: payload.room});
+        newAdmin.socket.emit('myDetails', { name: newAdmin.name, isAdmin: newAdmin.isAdmin, room: payload.room});
+        user.socket.emit('myDetails', { name: user.name, isAdmin: user.isAdmin, room: payload.room});
     }
 
     async getRoomUsers(room, showVote) {
