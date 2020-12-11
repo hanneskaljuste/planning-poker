@@ -41,7 +41,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
             room.removeUser(user);
             this.users.delete(user.socket.id);
             let newAdmin = room.users[0];
-            if (newAdmin) {
+            if (adminLeft && newAdmin) {
                 newAdmin.isAdmin = adminLeft;
                 newAdmin.socket.emit('myDetails', { name: newAdmin.name, isAdmin: newAdmin.isAdmin, room: room.id, voted: newAdmin.voted })
             }
