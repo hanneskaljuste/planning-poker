@@ -16,7 +16,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     private rooms = new Map<string, any>();
     private users = new Map<string, User>();
     private room = '';
-    private lastUserId = '';
 
     @WebSocketServer() server;
 
@@ -54,9 +53,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     @SubscribeMessage('users')
     async handleRequestUsers(client: any, room: string) {
         this.logger.log(`handleRequestUsers ${room}`);
-        if(client.id !== this.lastUserId) {
+        if(this.users[client.id]) {
             client.emit('users', await this.getRoomUsers(room, false));
-            this.lastUserId = client.id;
         }
     }
 
@@ -77,7 +75,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     async handleJoinRoom(client: any, payload: ConnectionData) {
         this.logger.log(`handleJoinRoom ${payload}`);
         const room = this.rooms[payload.room];
-        if (client.id === this.lastUserId) {
+        if (this.users[client.id]) {
             room.removeUser(this.users[client.id]);
             client.leave(room);
         }
