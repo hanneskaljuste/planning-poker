@@ -53,8 +53,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     @SubscribeMessage('users')
     async handleRequestUsers(client: any, room: string) {
         this.logger.log(`handleRequestUsers ${room}`);
-
-        client.emit('users', await this.getRoomUsers(room, false));
+        if(this.users[client.id]) {
+            client.emit('users', await this.getRoomUsers(room, false));
+        }
     }
 
     @SubscribeMessage('createRoom')
@@ -74,6 +75,10 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     async handleJoinRoom(client: any, payload: ConnectionData) {
         this.logger.log(`handleJoinRoom ${payload}`);
         const room = this.rooms[payload.room];
+        if (this.users[client.id]) {
+            room.removeUser(this.users[client.id]);
+            client.leave(room);
+        }
         if (room) {
             let user;
             if (this.users[client.id]) {
@@ -151,8 +156,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         user.isAdmin = false;
         newAdmin.isAdmin = true;
         this.server.to(payload.room).emit('users', await this.getRoomUsers(payload.room, false));
-        newAdmin.socket.emit('myDetails', { name: newAdmin.name, isAdmin: newAdmin.isAdmin, room: payload.room});
-        user.socket.emit('myDetails', { name: user.name, isAdmin: user.isAdmin, room: payload.room});
+        newAdmin.socket.emit('myDetails', { name: newAdmin.name, isAdmin: newAdmin.isAdmin, room: payload.room });
+        user.socket.emit('myDetails', { name: user.name, isAdmin: user.isAdmin, room: payload.room });
     }
 
     async getRoomUsers(room, showVote) {
