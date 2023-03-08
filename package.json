@@ -70,7 +70,7 @@
         "@types/socket.io": "^2.1.4",
         "codelyzer": "~5.0.1",
         "copy-webpack-plugin": "^5.1.1",
-        "cypress": "^4.1.0",
+        "cypress": "^4.12.1",
         "dotenv": "6.2.0",
         "eslint": "6.8.0",
         "generate-package-json-webpack-plugin": "^1.0.1",
